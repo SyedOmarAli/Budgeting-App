@@ -1,46 +1,51 @@
-// Variables declaration
-let userBgt = document.getElementById("user-bgt"); // input field for entering budget
-let setBgt = document.getElementById("set-bgt"); // button for storing budget
-let ctgDesc = document.getElementById("ctg-desc"); // input field for category desc
-let ctgAmnt = document.getElementById("ctg-amnt"); // input field for category amount
-let setExpense = document.getElementById("set-exp"); // button for setting expense
-let expAmnt = document.getElementById("exp-amnt"); // total budget will be printed here
-let desc = document.getElementById("desc");
-let amount = document.getElementById("amount"); 
-let totalExpense = document.getElementById("t-exp");
+let payDate = document.getElementById("pay_date");
+let ctgDesc = document.getElementById("ctg_desc");
+let category = document.getElementById("category");
+let expAmount = document.getElementById("exp_amount");
+let budgetAmount = document.getElementById("budget_amount");
 
-setBgt.onclick = function (event) {
-    event.preventDefault();
-    if (userBgt.value !== "") {
-        localStorage.setItem("userBgt", userBgt.value);
+let totalBudget = document.getElementById("t_budget");
+let totalExpense = document.getElementById("t_expense");
+let remBalance = document.getElementById("r_balance");
 
+
+
+function submitBudget() {
+    if (budgetAmount.value !== "") {
+        totalBudget.innerHTML = budgetAmount.value;
     }
     else {
-        alert("Enter Budget amount");
+        alert("Enter budget")
     }
-    expAmnt.innerHTML = localStorage.getItem("userBgt");
+    budgetAmount.value = "";
+
 }
 
-
-
-setExpense.onclick = function (event) {
-    event.preventDefault();
-    if (ctgDesc.value !== "" && ctgAmnt.value !== "") {
-        localStorage.setItem("ctgDesc", ctgDesc.value);
-        localStorage.setItem("ctgAmnt", ctgAmnt.value);
+function submitDetail() {
+    if (payDate.value !== "" && ctgDesc.value !== "" && category.value !== "" && expAmount.value !== "") {
+        let table = document.getElementById("table");
+        let totalExpAmnt = parseInt(totalExpense.textContent) || 0; // Get the current total expense amount or set to 0 if empty
+        let expenseAmnt = parseInt(expAmount.value); // Get the new expense amount
+        totalExpense.textContent = totalExpAmnt + expenseAmnt; // Update the total expense amount
+        let totalBgt = parseInt(totalBudget.textContent);
+        remBalance.textContent = totalBgt - totalExpense.textContent;
+        table.innerHTML += `
+      <tbody>
+        <tr>
+          <th scope="row">${category.value}</th>
+          <td>${ctgDesc.value}</td>
+          <td>${expenseAmnt}</td>
+          <td>${payDate.value}</td>
+        </tr>
+      </tbody>
+      </table>
+    `;
+    } else {
+        alert("Please enter details properly");
     }
-    else {
-        alert("Cannot Submit");
-    }
 
-    for(let i = 0; i < localStorage.length; i++) {
-        localStorage.setItem("ctgDesc", ctgDesc.value);
-        localStorage.setItem("ctgAmnt", ctgAmnt.value);
-    }
-     
-
-    desc.innerHTML = localStorage.getItem("ctgDesc");
-    amount.innerHTML = localStorage.getItem("ctgAmnt");
-    totalExpense.innerHTML = localStorage.getItem("ctgAmnt"); 
+    category.value = "";
+    ctgDesc.value = "";
+    expAmount.value = "";
+    payDate.value = "";
 }
-

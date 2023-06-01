@@ -1,0 +1,45 @@
+.budget_box {
+    border: 1px solid white;
+    padding: 55px;
+    width: 292px;
+    height: 250px;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+#budget_amount {
+    border: 1px solid;
+    border-radius: 13px;
+    text-align: center;
+}
+
+button {
+    border: 1px solid;
+    border-radius: 14px;
+    margin-left: 40px;
+    margin-top: 5px;
+}
+
+.expenditure {
+    display: flex;
+}
+
+ul {
+    display: flex;
+    list-style-type: none;
+}
+
+ul > li {
+    padding-left: 7rem;
+    font-size: 33px;
+    font-weight: 700;
+}
+
+.dashboard {
+    margin-top: -170px;
+}
+
+.dashb-detl {
+    font-style: oblique;
+    text-align: center;
+    font-weight: 400;
+}
