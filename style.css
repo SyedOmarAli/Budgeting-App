@@ -43,3 +43,12 @@ ul > li {
     text-align: center;
     font-weight: 400;
 }
+
+img {
+    width: 20px;
+    float: right;
+}
+
+img:hover {
+    cursor: pointer;
+}
