@@ -9,13 +9,19 @@ let totalExpense = document.getElementById("t_expense");
 let remBalance = document.getElementById("r_balance");
 let delBtn = document.getElementById("del_btn");
 
-
+if(localStorage.getItem("ctgDesc")) {
+  table.innerHTML = localStorage.getItem("ctgDesc");
+  totalBudget.innerHTML = localStorage.getItem("budgetAmount");
+  totalExpense.textContent = localStorage.getItem("totalExpAmnt");
+  remBalance.textContent = localStorage.getItem("remBalance");
+}
 
 
 
 function submitBudget() {
   if (budgetAmount.value !== "") {
     totalBudget.innerHTML = budgetAmount.value;
+    localStorage.setItem("budgetAmount", totalBudget.innerHTML);
   }
   else {
     alert("Enter budget")
@@ -38,12 +44,16 @@ function submitDetail() {
           <th scope="row">${category.value}</th>
           <td>${ctgDesc.value}</td>
           <td>${expenseAmnt}</td>
-          <td>${payDate.value} <img src="./delete.png" alt="delete" id="del_btn" class="delete-btn"> </td>
+          <td>${payDate.value} <img src="./delete.png" alt="delete" id="del_btn" class="dlt_btn"> </td>
         </tr>
       </tbody>
-      </table>
     `;
-  } else {
+    localStorage.setItem("category", table.innerHTML);
+    localStorage.setItem("ctgDesc", table.innerHTML);
+    localStorage.setItem("totalExpAmnt", totalExpense.textContent);
+    localStorage.setItem("remBalance", remBalance.textContent) 
+  }
+  else {
     alert("Please enter details properly");
   }
 
@@ -55,15 +65,15 @@ function submitDetail() {
 
 
 table.addEventListener("click", function (event) {
-  if (event.target.classList.contains("delete-btn")) {
-    deleteExpense(event.target);
+  if (event.target.classList.contains("dlt_btn")) {
+    delExp(event.target);
   }
 });
 
-function deleteExpense(deleteButton) {
+function delExp(deleteButton) {
   let row = deleteButton.parentNode.parentNode;
-  let amountCell = row.querySelector("td:nth-child(3)");
-  let expenseAmnt = parseInt(amountCell.textContent);
+  let amountCel = row.querySelector("td:nth-child(3)");
+  let expenseAmnt = parseInt(amountCel.textContent);
   row.remove();
 
   let totalExpAmnt = parseInt(totalExpense.textContent) || 0;
